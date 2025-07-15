@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal File Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Universal File Converter 🔄</h1>
+        <p>Convert your files between various formats.</p>
+
+        {% if error %}
+            <div class="error-message">
+                🚨 Error: {{ error }}
+            </div>
+        {% endif %}
+
+        <form action="/convert" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose File:</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+
+            <div class="form-group">
+                <label for="target_extension">Convert To:</label>
+                <select id="target_extension" name="target_extension" required>
+                    <option value="">Select Target Format</option>
+                    {% for fmt in all_possible_output_formats %}
+                        <option value="{{ fmt }}">{{ fmt.upper() }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Convert and Download</button>
+        </form>
+
+        <div class="supported-formats">
+            <h2>Supported Input Formats:</h2>
+            <p>
+                {% for fmt in supported_input_formats %}
+                    <span class="format-tag">{{ fmt.upper() }}</span>
+                {% endfor %}
+            </p>
+            <p>
+            This list is dynamically generated from the backend based on available conversion plugins.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
