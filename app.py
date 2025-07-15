@@ -51,7 +51,7 @@ def convert_file():
     if not target_ext:
         return render_template('index.html', error="No target format selected."), 400
 
-    original_filename = file.filename
+    original_filename = file.filename 
     # Ensure filename is safe (basic sanitization)
     original_filename_base, original_ext_full = os.path.splitext(original_filename)
     original_ext = original_ext_full.lstrip('.').lower() # Get extension without dot
